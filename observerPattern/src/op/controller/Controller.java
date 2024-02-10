@@ -76,12 +76,12 @@ public class Controller {
 		AverageObserver ao = new AverageObserver();
 		lsSubject.addObserver(ao);
 		
-//		ExtremeObserver eo = new ExtremeObserver();
-//		lsSubject.addObserver(eo);
+		ExtremeObserver eo = new ExtremeObserver();
+		lsSubject.addObserver(eo);
 		
-//		List<String> symbols = Arrays.asList("ALL", "BA", "BC", "GBEL", "KFT", "MCD", "TR", "WAG");
-//		ListingObserver lo = new ListingObserver(symbols);
-//		lsSubject.addObserver(lo);
+		List<String> symbols = Arrays.asList("ALL", "BA", "BC", "GBEL", "KFT", "MCD", "TR", "WAG");
+		ListingObserver lo = new ListingObserver(symbols);
+		lsSubject.addObserver(lo);
 		
 		// Reading initial data in, maybe change this to perform loop in readData
 		InputStream inputStream = Controller.class.getResourceAsStream("Ticker.dat");

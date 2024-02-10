@@ -1,6 +1,7 @@
 package op.controller;
 import java.util.List;
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 // A report that displays the average of all local stock prices of each snapshot, along
 // with the time the snapshot was taken
@@ -21,29 +22,12 @@ public class AverageObserver implements Observer, Display {
 	}
 	
 	public void display(String output) {
-//		try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
-//			writer.println(output);
-		
-        // Get the package directory
-        String packageDir = AverageObserver.class.getPackage().getName().replace('.', '/');
-        
-        // File path
-        String filePath = packageDir + "/Average.dat";
-        System.out.println(packageDir);
-
-        // Write the string to file
-        try {
-            // Create FileOutputStream and OutputStreamWriter
-            FileOutputStream fos = new FileOutputStream(filePath);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            
-            // Write the string to the file
-            osw.write(output);
-            
-            // Close the resources
-            osw.close();
-            fos.close();
-		} catch (IOException e) {
+		try {
+			// True value in FileWriter allows for appending
+			FileWriter writer = new FileWriter("Average.dat", true);
+			writer.append(output + "\n");
+			writer.close();
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -1,7 +1,6 @@
 package op.controller;
 import java.util.List;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.IOException;
 
 // A report that displays all fields for the following companies (listed here by ticker
@@ -14,13 +13,23 @@ public class ListingObserver implements Observer, Display {
 	}
 	
 	public void update(Snapshot snapshot) {
-		System.out.println(snapshot.getDateTime());
+		String output = snapshot.getDateTime();
 		for (List<String> line: snapshot.getData()) {
 			if (symbols.contains(line.get(LineValues.SYMBOL.getValue()))) {
-				System.out.println(String.join(", ", line));
+				output += String.join(", ", line) + "\n";
 			}
 		}
-		System.out.println("");
+		display(output);
+	}
+	
+	public void display(String output) {
+		try {
+			FileWriter writer = new FileWriter("Listings.dat", true);
+			writer.append(output + "\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<String> getSymbols() {
